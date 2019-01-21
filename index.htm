@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+
+<!--<html lang="en">-->
+<html lang="en" manifest="cache.manifest">
+<head>
+	<meta charset="utf-8" />
+	<title>Пакман</title>
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="pacman-canvas.css">
+	<link rel="manifest" href="manifest.json">
+
+
+	<!-- SEO Stuff -->
+    <meta name="description" content="Играй в Пакмана везде!" />
+    <link rel="canonical" href="http://pacman.platzh1rsch.ch/" />
+    <meta name="author" content="platzh1rsch.ch" />
+    <meta name="publisher" content="platzh1rsch.ch" />
+    <meta name="copyright" content="&copy; Copyright (c) platzh1rsch.ch" />
+    <meta name="robots" content="index,follow" />
+    <meta http-equiv="content-language" content="de">
+    <meta name="language" content="de">
+    <meta name="page-topic" content="Games/Arcade" />
+
+    <meta content="National" name="distribution" />
+    <meta content="pacman.platzh1rsch.ch" name="target" />
+
+   	<!-- Facebook Open Graph Information -->
+	<meta property="og:image" content="http://pacman.platzh1rsch.ch/img/Icon-200x200.png"/>
+    <meta property="og:title" content="Пакман" />
+	<meta property="og:description" content="Играй в Пакмана везде!" />
+    <meta property="og:url" content="http://pacman.platzh1rsch.ch/" />
+    <meta property="og:site_name" content="Пакман" />
+	<meta property="og:locale" content="ru_Ru" />
+
+	<!-- site icons -->
+	<link rel="shortcut icon" href="img/Icon-130x130.png" />
+	<link rel="apple-touch-icon" href="img/Icon-130x130.png" />
+
+    <meta property="og:image" content="http://pacman.platzh1rsch.ch/img/Icon-130x130.png"/>
+
+	<!-- AppsFuel verification code -->
+	<meta name="appsfuel_code" content="83d3cedc1050a5c"/>
+	
+	<!-- Mobile Viewport -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+	
+	<!-- Apple Mobile Web Capability -->
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	
+	<!-- Script -->
+	<script src="js/jquery-1.10.2.min.js" type="text/javascript"></script>
+	<script src="js/jquery.hammer.min.js" type="text/javascript"></script>
+	
+	<!-- Google Analytics -->
+	<script type="text/javascript">
+
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-28993174-1']);
+	  _gaq.push(['_setDomainName', 'pacman.platzh1rsch.ch']);
+	  _gaq.push(['_trackPageview']);
+
+	  (function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+	</script>
+	
+</head>
+
+<body>
+
+<div class="container">
+<div class="main">
+
+
+<!-- Display this message if Javascript is disabled -->
+<noscript>
+<h2>Enable Javascript!</h2>
+<p>This HTML 5 app requires Javascript to run. Please check that Javascript is enabled in your browser.</p>
+</noscript>
+
+<!-- Highscore -->
+<div class="content" id="highscore-content">
+	<div class="button" id="back">&lt; back</div>
+	<div>
+		<h1>Высший Счёт!</h1>
+		<p>
+			<ol id="highscore-list">
+				
+			</ol>
+		</p>
+	</div>
+</div>
+
+<!-- INSTRUCTIONS -->
+<div class="content" id="instructions-content">
+	<div class="button" id="Назад">&lt; back</div>
+	<div>
+		<h1>Instructions</h1>
+		<div class="nomobile">
+			<h2>Управление</h2>
+			<p>Используйте [W,A,S,D] клавишы что бы Пакман начал двигаться.</p>
+			<p>Чтобы приостановить / возобновить игру, нажмите клавишу [пробел] или [ESC] или просто нажмите в области игры.</p>
+		</div>
+		<div class="mobile">
+			<h2>Управеление</h2>
+			<p>Используйте тачпад для того что бы Пакман начал двигаться</p>
+			<p>В качестве альтернативы используйте кнопки со стрелками под игровой областью для навигации Пакманом.</p>
+			<p>Чтобы приостановить / возобновить игру, коснитесь игровой области один раз.</p>
+		</div>
+
+		<div>
+			<h2>Призраки</h2>
+			<p>Призраки - это существа, которые охотятся на пакмана и убьют его, если поймают его.</p>
+			<p>У каждого призрака есть своя собственная стратегия, чтобы преследовать Пакмана.</p>
+			<h3>Инки<img src="img/inky.svg" class="pull-right"></h3>
+			Инки останется в доме призраков, пока Пакман не съест хотя бы 30 таблеток. Его дом находится в правом нижнем углу.
+			<h3>Блинки <img src="img/blinky.svg" class="pull-right"></h3>
+			Блинки - самый агрессивный из 4 призраков. Он сразу же начнет преследовать Пакмана и нацелится прямо на него. Его дом находится в верхнем правом углу.
+			<h3>Пинки<img src="img/pinky.svg" class="pull-right"></h3>
+			Пинки сразу же начнет преследовать Пакмана, он всегда будет стремиться находится на 4 поля вперед и на 4 поля слева от Пакмана. Его дом находится в верхнем левом углу.
+			<h3>Клайд<img src="img/clyde.svg" class="pull-right"></h3>
+			Инки останется в доме призраков, пока Пакман не съест не менее 2/3 всех таблеток. Его дом - левый нижний угол.
+		</div>
+
+		<div>
+			<h2>Призрачный мод</h2>
+			У призраков есть два разных настроения, которые меняют их поведение во время игры.
+			<h3>Разбросать настроение</h3>
+			<p>Это настроение по умолчанию. Когда призраки находятся в рассеянном настроении, они просто идут в свой домашний уголок и остаются там.</p>
+			<img src="img/instructions/instructions_scatter.PNG">
+			<h3>Погоня за настроением</h3>
+			<p>Через некоторое время призраки меняют настроение и хотят отправиться в погоню за пакманом. На это указывают красные стены.</p>
+			<img src="img/instructions/instructions_chase.PNG">
+		</div>
+
+		<div>
+			<h2>Вещи</h2>
+			<h3>Таблетки</h3>
+			<p>Цель каждого уровня состоит в том, чтобы съесть все белые таблетки, не будучи пойманным призраками. Одна таблетка дает 10 баллов.</p>
+			<h3>Таблетки силы</h3>
+			<p>На каждом уровне есть 4 таблетки силы, которые немного больше, чем обычные. Если Пакман съест их, он станет достаточно сильным, чтобы съесть призраков. Это видно по призракам, которые становятся синими. Одна таблетка силы приводит к 50 баллам.</p>
+			<img src="img/instructions/instructions_powerpill.PNG">
+			<p>Если сьесть призрака мы получим 100 очкам. Душа призрака вернется в дом призраков, прежде чем снова начнет преследовать Пакмана.</p>
+		</div>
+
+	</div>
+</div>
+
+<!-- Info -->
+<div class="content" id="info-content">
+	<div class="button" id="back">&lt; Назад</div>
+	<div>
+		<h1>Информация</h1>
+		<p>Версия 0.01 (21.01.2019) </p>
+	
+		<p>Данная игра в активной разработке</p>
+		<p>Все вопросы и предлжения писанть в личные сообщения разработчика.</p>
+		<p>
+	</div>
+</div>
+
+
+
+<!-- main game content -->
+<div class="content" id="game-content">
+
+		<!-- Google AdSense -->
+		<div id="adsense">
+			<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+			<ins class="adsbygoogle"
+			     style="display:inline-block;width:320px;height:50px"
+			     data-ad-client="ca-pub-0176206735745791"
+			     data-ad-slot="6492298622"></ins>
+			<script>
+			(adsbygoogle = window.adsbygoogle || []).push({});
+			</script>
+		</div>
+	
+	
+	<!-- main game content -->
+	<div class="game wrapper">
+	
+		<div class="score">Очки:</div>
+		<div class="level">Уровень:</div>
+		<div class="lives">Жизни: </div>
+		
+		<div class="controlSound">
+			<img src="img/audio-icon-mute.png" id="mute">
+		</div>
+		<!-- canvas is splitted into 18x13 fields -->
+		<div id="canvas-container">
+			<div id="canvas-overlay-container">
+				<div id="canvas-overlay-content">
+					<div id="title">Пакман</div>
+					<div><p id="text">Клик</p></div>
+				</div>
+			</div>
+			<canvas id="myCanvas" width="540" height="390">
+			<p>Canvas not supported</p>
+			</canvas>
+		</div>
+
+		<div class="controls" id="game-buttons">
+		<!-- Will be moved to Instructions 
+		<p class="nomobile">Используйте Ц-Ф-Ы-В для управелия Пакманом</p>
+		-->
+		
+			<!-- OLD Buttons -->
+			<div>
+				<span id="up" class="controlButton">&uarr;</span>
+			</div>
+			<div>
+				<span id="left" class="controlButton">&larr;</span>
+				<span id="down" class="controlButton">&darr;</span>
+				<span id="right" class="controlButton">&rarr;</span>
+			</div>
+			
+		</div>
+		<!-- inGame Controls End -->
+		
+		<!-- Game Menu -->		
+		<div class="controls" id="menu-buttons">
+			<ul>
+				<li class="button" id="newGame">Новая игра</li>
+				<li class="button" id="highscore">Рекорды</li>
+				<li class="button" id="instructions">Инструкция</li>
+				<li class="button" id="info">Информация</li>
+			</ul>
+			
+		</div>
+		<!-- Game Menu End -->
+		
+	</div>
+		
+	<div class="description nomobile">
+		<p>This whole thing was written in HTML5, CSS3 and Javascript (using small bits of jquery). For the basics I was following the <a href="http://devhammer.net/blog/exploring-html5-canvas-part-1---introduction" target="_blank">"Exploring HTML5 Canvas"</a> Tutorials (Part 1 - 6) by Devhammer. Thanks for the great Tutorial!</a>
+		<p>For some other stuff, like how to write objectorientated javascript I was following the tutorials over at <a href="http://www.codecademy.com/" target="_blank">http://www.codecademy.com/</a>, which is a really great site to learn Javascript and also other languages.</a>
+		<p>If you understand German you can also read my blogpost about this site: <a href="http://blog.platzh1rsch.ch/2012/08/pacman-in-html5-canvas.html">"Pacman in HTML5 Canvas"</a>.</p>
+		
+		<span id="audio">
+			<audio id="theme" preload="auto">
+				<source src="wav/theme.wav" type="audio/wav">
+				<source src="mp3/theme.mp3" type="audio/mpeg">
+			</audio>
+			<audio id="waka" preload="auto">
+				<source src="wav/waka.wav" type="audio/wav">
+				<source src="mp3/waka.mp3" type="audio/mpeg">
+			</audio>
+			<audio id="die" preload="auto">
+				<source src="wav/die.wav" type="audio/wav">
+				<source src="mp3/die.mp3" type="audio/mpeg">
+			</audio>
+			<audio id="powerpill" preload="auto">
+				<source src="wav/powerpill.wav" type="audio/wav">
+				<source src="mp3/powerpill.mp3" type="audio/mpeg">
+			</audio>
+		</span>
+		
+		
+	</div>
+
+</div>
+</div>
+</div>
+
+	<script src="pacman-canvas.js" type="text/javascript"></script>
+
+
+</body>
+</html>

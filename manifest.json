@@ -1,0 +1,34 @@
+{
+  "name": "Pacman",
+  "short_name": "Pacman",
+  "description": "An old classic, rewritten in HTML5",
+  "version": "0.01",
+  "lang": "ru-Ru",
+
+  "display": "standalone",
+  "orientation": "portrait",
+  "start_url": "./?utm_source=web_app_manifest",
+
+
+  "icons": [
+    {
+      "src": "img/icon-128.png",
+      "sizes": "128x128",
+    }
+  ],
+
+  "app": {
+    "urls": [
+      "http://pacman.platzh1rsch.ch/"
+    ],
+    "launch": {
+      "web_url": "http://pacman.platzh1rsch.ch"
+    }
+	
+	},
+
+  "verification_key" : "qEEljlue1yjdGu2WBxra",
+  "type" : "web",
+  "last_update" : "2019-01-21 16:45:11+0000"
+	
+}
